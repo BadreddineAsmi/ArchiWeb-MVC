@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/TaskCategoryPage/css/pageTaches.css">
+    <title>Page taches</title>
+</head>
+
+<body>
+    <nav>
+        <div id="nav_conteneur_titre">
+            <h1><a id="navbar_titre" href="/">Gestion de projet</a></h1>
+        </div>
+        <div id="nav_boutons">
+            <% if(projectcat === 1) { %>
+                <div onclick="location.href='<%= addprojectpagelink %>'" id="nav_creation_projet"></div>
+            <% } %> 
+            <div onclick="location.href='<%= logoutlink %>'" id="nav_deconnexion"></div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="main_container">
+            <div class="main_container_title">
+                <h1 class="handle"><%= projectname %></h1>
+            </div>
+            
+            <div id="main_app">
+                <ul class="list">
+                    <% if(category) { %>
+                        <li onclick="location.href='tasks/1/'">Tâche en cours (<%= amount_inuse %>)</li>
+                        <li onclick="location.href='tasks/2/'">Tâche annulé (<%= amount_canceled %>)</li>
+                        <li onclick="location.href='tasks/3/'">Tâche terminé (<%= amount_finished %>)</li>
+                    <% } else { %>
+                        <% if(tasks.length > 0) { %> 
+                            <% for(task of tasks) { %>
+                                <li><p class="taskname" onclick="location.href='task/<%= task.id %>/'"><%= task.name %> </p><div onclick="location.href='/editTask/<%= projectID+'/'+task.id %>'" class="taskbtn"><img src="/TaskCategoryPage/imgs/edit.png"></div></li>
+                            <% } %>
+                        <% } else { %>
+                            <div class="main_container_empty">
+                                <h3>Vous avez actuellement aucune tâche pour cette catégorie.</h3>
+                            </div>
+                        <% } %> 
+                    <% } %> 
+                </ul>
+            </div>
+
+        </div>
+    </main>
+    <footer>
+        <p>Copyright ©Badreddine Asmi</p>
+    </footer>
+</body>
+</html>

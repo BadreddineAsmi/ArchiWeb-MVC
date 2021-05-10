@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="LoginPage/css/loginPage.css">
+    <title>Gestion de projet - Page de connection</title>
+</head>
+
+<body>
+    <main>
+        <div id="bloc_de_connection">
+            <form action="<%= loginPath %> " method="post">
+                <div id="image_utilisateur">
+                    <img src="LoginPage/imgs/userlogo.png" alt="Avatar" class="avatar">
+                </div>
+
+                <div>
+                    <label for="utilisateur"><b>Nom d'utilisateur</b></label>
+                    <input type="text" placeholder="Entrez votre nom d'utilisateur" name="user" required>
+
+                    <label for="password"><b>Mot de passe: </b></label>
+                    <input type="password" placeholder="Entrez un mot de passe" name="password" required>
+
+                    <button type="submit">Se connecter</button>
+                    <button type="button" onclick="location.href='<%= registerPath %>'">Pas de compte?</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright ©Badreddine Asmi</p>
+    </footer>
+</body>
+
+</html>

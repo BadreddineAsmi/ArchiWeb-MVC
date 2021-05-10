@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/TaskShowPage/css/pageTaches.css">
+    <title>Gestion de projet - Tâche</title>
+</head>
+
+<body>
+    <nav>
+        <div id="nav_conteneur_titre">
+            <h1><a id="navbar_titre" href="/">Gestion de projet</a></h1>
+        </div>
+        <div id="nav_boutons">
+            <% if(projectcat === 1) { %>
+                <div onclick="location.href='<%= addprojectpagelink %>'" id="nav_creation_projet"></div>
+            <% } %> 
+            <div onclick="location.href='<%= logoutlink %>'" id="nav_deconnexion"></div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="main_container">
+            <div class="main_container_title">
+                <h1 class="handle"><%= projectname %></h1>
+            </div>
+            
+            <div id="main_app">
+                <div id="main_content">
+                    <div id="main_content_value_filled" v-if="selection">
+                        <div id="main_content_value_filled_topside">
+                            <h1><%= name %></h1>
+                            <% if(projectcat === 1) { %>
+                                <div id="app_button_container">
+                                    <button id="app_delete" type="button" onclick="location.href='<%= linkToDelete %>'">Delete</button>
+                                    <% if(currentCat !== 2) { %>
+                                        <button id="app_cancel" type="button" onclick="location.href='<%= linkToCancel%>'">Cancel</button>
+                                    <% } %>
+                                    <% if(currentCat !== 1) { %>
+                                        <button id="app_finished" type="button" onclick="location.href='<%= linkToRetake %>'">Reprendre</button>
+                                    <% } %>
+                                    <% if(currentCat !== 3) { %>
+                                        <button id="app_finished" type="button" onclick="location.href='<%= linkToFinish%>'">Finished</button>
+                                    <% } %>
+                                </div>
+                            <% } %> 
+                        </div>
+                        <div id="main_content_value_filled_botside">
+                            <p><%= desc %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright ©Badreddine Asmi</p>
+    </footer>
+</body>
+</html>

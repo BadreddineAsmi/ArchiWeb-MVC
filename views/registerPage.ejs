@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="RegisterPage/css/pageEnregistrement.css">
+    <title>Gestion de projet - Page d'enregistrement</title>
+</head>
+
+<body>
+    <main>
+        <div id="bloc_de_connection">
+            <form action="<%= confirmRegister %>" method="post">
+                <div id="enregistrement">
+                    <label for="prenom"><b>Prénom</b></label>
+                    <input type="text" placeholder="Entrez votre prènom" name="fname" required>
+
+                    <label for="nom"><b>Nom</b></label>
+                    <input type="text" placeholder="Entrez votre nom" name="name" required>
+
+                    <label for="utilisateur"><b>Nom d'utilisateur</b></label>
+                    <input type="text" placeholder="Entrez votre nom d'utilisateur" name="username" required>
+
+                    <label for="utilisateur"><b>Addresse e-mail</b></label>
+                    <input type="text" placeholder="Entrez votre adresse e-mail" name="email" required>
+
+                    <label for="mdp"><b>Mot de passe: </b></label>
+                    <input type="password" placeholder="Entrez un mot de passe" name="password" required>
+                    <button type="submit">S'enregistrer</button>
+                    <button type="button" onclick="location.href='<%= loginPage %>'">Retour</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright ©Badreddine Asmi</p>
+    </footer>
+</body>
+
+</html>

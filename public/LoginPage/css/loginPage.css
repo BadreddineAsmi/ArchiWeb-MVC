@@ -1,0 +1,77 @@
+body {
+    display: flex;
+    flex-direction: column;
+    /*Pour avoir un footer*/
+    height: 100vh;
+    margin: 0;
+    background-image: url('../imgs/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+footer {
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+main {
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+input[type=text],
+input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #95a5a6;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #7f8c8d;
+}
+
+#image_utilisateur {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    width: 100%;
+}
+
+#image_utilisateur>img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#bloc_de_connection {
+    height: 550px;
+    width: 400px;
+    padding: 10px;
+    backdrop-filter: blur(40px);
+    border: 3px solid #f1f1f1;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}

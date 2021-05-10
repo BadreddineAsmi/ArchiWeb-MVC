@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="ProjectPage/css/pageProjet.css">
+    <title>Gestion de projet - Projets</title>
+</head>
+<body>
+    <nav>
+        <div id="nav_conteneur_titre">
+            <h1><a id="navbar_titre" href="/">Gestion de projet</a></h1>
+        </div>
+        <div id="nav_boutons">
+            <div onclick="location.href='<%= addprojectpagelink %>'" id="nav_creation_projet"></div>
+            <div onclick="location.href='<%= logoutlink %>'" id="nav_deconnexion"></div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="main_container">
+            <div class="main_container_title">
+                <h1 class="handle">Projet en cours</h1>
+            </div>
+
+            <div class="main_container_projects">
+                <% if(inuse.projects.length === 0){ %>
+                    <div class="main_container_empty">
+                        <h3>Aucun projet annulé</h3>
+                    </div>
+                <% } %> 
+                <% for(let i = 0; i<inuse.projects.length; i++){ %> 
+                    <div class="project_card">
+                        <div id="project_editbtn" onclick="location.href='<%= editprojectpagelink+inuse.projects[i].id %>'"><img src="ProjectPage/imgs/edit.png"></div>
+                        <div class="project_visit_link" onclick="location.href='project/<%= inuse.projects[i].id %>/'">
+                            <div class="project_title">
+                                <h2><%= inuse.projects[i].name %></h2>
+                            </div>
+                            <div class="project_description">
+                                <p><%= inuse.projects[i].description %></p>
+                            </div>
+                        </div>
+                        <div class="project_buttons">
+                            <button class="project_buttons_left" type="button" onclick="location.href='<%= `/projectmove/${inuse.projects[i].id}/0/` %>'"><img src="ProjectPage/imgs/exit.png"></button>
+                            <button class="project_buttons_right" type="button" onclick="location.href='<%= `/projectmove/${inuse.projects[i].id}/3/`  %>'"><img src="ProjectPage/imgs/correct.png"></button>
+                            <button class="project_buttons_middle" type="button" onclick="location.href='<%= `/projectmove/${inuse.projects[i].id}/2/`  %>'"><img src="ProjectPage/imgs/cancel.png"></button>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="main_container">
+            <div class="main_container_title">
+                <h1 class="canceled">Projet annulé</h1>
+            </div>
+            <div class="main_container_projects">
+                <% if(canceled.projects.length === 0){ %>
+                    <div class="main_container_empty">
+                        <h3>Aucun projet annulé</h3>
+                    </div>
+                <% } %> 
+                <% for(let i = 0; i<canceled.projects.length; i++){ %> 
+                    <div class="project_card">
+                        <div class="project_visit_link" onclick="location.href='project/<%= canceled.projects[i].id %>/'">
+                            <div class="project_title">
+                                <h2><%= canceled.projects[i].name %></h2>
+                            </div>
+                            <div class="project_description">
+                                <p><%= canceled.projects[i].description %></p>
+                            </div>
+                        </div>
+                        <div class="project_buttons">
+                            <button class="project_buttons_left" type="button" onclick="location.href='<%= `/projectmove/${canceled.projects[i].id}/0/` %>'"><img src="ProjectPage/imgs/exit.png"></button>
+                            <button class="project_buttons_right" type="button" onclick="location.href='<%= `/projectmove/${canceled.projects[i].id}/3/` %>'"><img src="ProjectPage/imgs/correct.png"></button>
+                            <button class="project_buttons_middle" type="button" onclick="location.href='<%= `/projectmove/${canceled.projects[i].id}/1/` %>'"><img src="ProjectPage/imgs/retake.png"></button>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    
+        <div class="main_container">
+            <div class="main_container_title">
+                <h1 class="done">Projet terminé</h1>
+            </div>
+            <div class="main_container_projects">
+                <% if(finished.projects.length === 0){ %>
+                    <div class="main_container_empty">
+                        <h3>Aucun projet annulé</h3>
+                    </div>
+                <% } %> 
+                <% for(let i = 0; i<finished.projects.length; i++){ %> 
+                    <div class="project_card">
+                        <div class="project_visit_link" onclick="location.href='project/<%= finished.projects[i].id %>/'">
+                            <div class="project_title">
+                                <h2><%= finished.projects[i].name %></h2>
+                            </div>
+                            <div class="project_description">
+                                <p><%= finished.projects[i].description %></p>
+                            </div>
+                        </div>
+                        <div class="project_solo">
+                            <button class="project_buttons_left" type="button" onclick="location.href='<%= `/projectmove/${finished.projects[i].id}/0/` %>'"><img src="ProjectPage/imgs/exit.png"></button>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+
+    </main>
+    <footer>
+        <p>Copyright ©Badreddine Asmi</p>
+    </footer>
+</body>
+</html>
