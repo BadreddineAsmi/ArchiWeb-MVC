@@ -1,5 +1,5 @@
 let express = require('express');
-let router = express.Router();
+let router = express.Router({strict: true});
 let login_controller = require('../controllers/login_controller')
 
 
@@ -26,6 +26,5 @@ router.get('/logout', login_controller.logout)
 // Attraper toutes les requêtes qui sorte du cadres login!
 // Tant que l'utilisateur n'est pas enregistré/connecté on ne veux pas qu'il aille ailleur!
 router.get('/:any', login_controller.checkUser);
-router.post('/:any', login_controller.checkUser);
 
 module.exports = router

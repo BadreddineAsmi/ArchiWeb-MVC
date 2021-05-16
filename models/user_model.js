@@ -1,23 +1,38 @@
+const db = require('../db')
+
 class User {
-    constructor(db) {
-        this.db = db
+    constructor(request) {
+        this.request = request
+        this.iduser = request.session.userID
+        this.isconnected = request.session.isConnected
     }
 
     checkUser(username, password, fun){
         db.query("SELECT iduser, username, password FROM user WHERE username=?;", username, (error, result) => {
             if(error) {
-                return response.status(400).json(error)
-            }
-            if(result.length > 0) { // On controle si le resultat n'est pas vide!
-                if(result[0].username === username && result[0].password === password){
-                    request.session.isConnected = true;
-                    request.session.userID = result[0].iduser;
-                    response.status(200).json({error: false, message: 'Connecté avec succes!'})
-                } else {
-                    response.status(400).json({error: true, message: 'Nom d\'utilisateur ou mot de passe incorrecte!'})
-                }
+                return fun(false)
+            } else if(result.length > 0 && result[0].username === username && result[0].password === password) { 
+                this.request.session.isConnected = true;
+                this.request.session.userID = result[0].iduser;
+                fun(true)
             } else {
-                response.status(404).json({error: true, message: 'L\'utilisateur n\'a pas été trouvé!'});
+                fun(false)
+            }
+        })
+    }
+
+    logout(fun){
+        if (this.isconnected) {
+            this.request.session.destroy();   
+        }
+        fun()
+    }
+
+    registerUser(name, lastname, email, username, password, fun){
+        if(name === undefined || lastname === undefined || username === undefined || email === undefined || password === undefined) return fun(true)
+        db.query("INSERT INTO user (username, password, email, name, lastname) VALUES (?, ?, ?, ?, ?);", [username, password, email, name, lastname], (error) => {
+            if (!error) {
+                this.checkUser(username, password, () => {})
             }
         })
     }

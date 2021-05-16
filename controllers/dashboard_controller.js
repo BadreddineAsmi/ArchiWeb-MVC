@@ -1,8 +1,7 @@
 const im = require('../models/informationManager_model');
-const db = require('../db')
 
 exports.showRegisterPage = function(request, response) {
-    const info = new im(db, 2) // Get dans le const iduser = request.session.userID 
+    const info = new im(request) // Get dans le const iduser = request.session.userID 
     const list = info.getInformations(function(organizedQuery) {
         const inuse = organizedQuery.find(element => element.catid === 1)
         const canceled = organizedQuery.find(element => element.catid === 2)
@@ -21,7 +20,7 @@ exports.showRegisterPage = function(request, response) {
 exports.showTaskCategories = async function(request, response) {
     // Recup le nombre de tâche pour le projet
     const projectID = request.params.pid
-    const info = new im(db, 2)
+    const info = new im(request)
     info.getProject(projectID, function(found, projectcat) {
         if(found !== undefined) {
             response.render('taskCategoryPage.ejs', 
@@ -30,6 +29,7 @@ exports.showTaskCategories = async function(request, response) {
             'category': true, 'projectname': found.name,
             'projectID': projectID,
             'projectcat': projectcat,
+            'taskcategory': null,
             'amount_inuse': found.tasks.find(el => el.catid == 1).tasks.length, 
             'amount_canceled': found.tasks.find(el => el.catid == 2).tasks.length, 
             'amount_finished': found.tasks.find(el => el.catid == 3).tasks.length})
@@ -40,7 +40,7 @@ exports.showTaskCategories = async function(request, response) {
 }
 
 exports.showTasks = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = request.params.pid
     const tcat = parseInt(request.params.cat)
     if(projectID !== undefined && tcat !== undefined){
@@ -53,6 +53,7 @@ exports.showTasks = function(request, response) {
                 'category': false,
                 'projectcat': projectcat,
                 'projectname': found.name, 
+                'taskcategory': tcat,
                 'tasks': found.tasks.find(el => el.catid === tcat).tasks })
             } else {
                 response.redirect('/')
@@ -65,7 +66,7 @@ exports.showTasks = function(request, response) {
 
 
 exports.showTask = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = request.params.pid
     const tcat = parseInt(request.params.cat)
     const taskid = parseInt(request.params.taskid)
@@ -96,7 +97,7 @@ exports.showTask = function(request, response) {
 }
 
 exports.taskMove = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = parseInt(request.params.project)
     const taskID = parseInt(request.params.taskid)
     const ncategory = parseInt(request.params.ncategory)
@@ -129,7 +130,7 @@ exports.taskMove = function(request, response) {
 }
 
 exports.projectMove = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = parseInt(request.params.project)
     const ncategory = parseInt(request.params.ncategory)
 
@@ -149,7 +150,7 @@ exports.projectMove = function(request, response) {
 }
 
 exports.addProject = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     response.render('AddElementPage.ejs', 
     {'addprojectpagelink': '/addproject',
     'logoutlink': '/logout',
@@ -162,7 +163,7 @@ exports.addProject = function(request, response) {
 }
 
 exports.postProject = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectname = request.body.name
     const projectdesc = request.body.desc
     info.createProject(projectname, projectdesc, (error) => {
@@ -171,7 +172,7 @@ exports.postProject = function(request, response) {
 }
 
 exports.addTask = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = parseInt(request.params.idproject)
 
     response.render('AddElementPage.ejs', 
@@ -186,7 +187,7 @@ exports.addTask = function(request, response) {
 }
 
 exports.postTask = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = parseInt(request.params.idproject)
     const taskname = request.body.name
     const taskdesc = request.body.desc
@@ -200,7 +201,7 @@ exports.postTask = function(request, response) {
 }
 
 exports.editProject = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = parseInt(request.params.pid)
 
     if(projectID !== undefined){
@@ -223,7 +224,7 @@ exports.editProject = function(request, response) {
 }
 
 exports.postEditProject = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = parseInt(request.params.pid)
     const newname = request.body.name
     const newdesc = request.body.desc
@@ -236,7 +237,7 @@ exports.postEditProject = function(request, response) {
 }
 
 exports.editTask = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = parseInt(request.params.pid)
     const taskID = parseInt(request.params.tid)
 
@@ -260,7 +261,7 @@ exports.editTask = function(request, response) {
 }
 
 exports.postEditTask = function(request, response) {
-    const info = new im(db, 2)
+    const info = new im(request)
     const projectID = parseInt(request.params.pid)
     const taskID = parseInt(request.params.tid)
     const newname = request.body.name

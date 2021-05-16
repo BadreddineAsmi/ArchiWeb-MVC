@@ -11,17 +11,18 @@ app.use(express.static('public')); //Resources css/js/imgs
 app.use(session({
     secret: 'clé secret?', // Clé unique!
     resave: false, // Conserver la session?
-    saveUninitialized: true
+    saveUninitialized: false
 }))
 
 // Routes
 const api_routes = require('./routes/routes_api')
-const login_routes = require('./routes/routes_vitrine')
+const login_routes = require('./routes/routes_connect')
 const dashboard_routes = require('./routes/routes_dashboard')
 
-// CORS
+// CORS 
 app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Origin", "localhost") // Mettre '*' ?
+    res.header("Access-Control-Allow-Credentials", "true") // Permet de garder une session persistente pour notre API
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
     res.header("Access-Control-Allow-Headers", 'Content-type,Accept,X-access-Token,X-Key')
     if(req.method == 'OPTIONS') {

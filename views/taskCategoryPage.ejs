@@ -36,7 +36,11 @@
                     <% } else { %>
                         <% if(tasks.length > 0) { %> 
                             <% for(task of tasks) { %>
-                                <li><p class="taskname" onclick="location.href='task/<%= task.id %>/'"><%= task.name %> </p><div onclick="location.href='/editTask/<%= projectID+'/'+task.id %>'" class="taskbtn"><img src="/TaskCategoryPage/imgs/edit.png"></div></li>
+                                <% if(taskcategory === 1) { %>
+                                    <li><p class="taskname" onclick="location.href='task/<%= task.id %>/'"><%= task.name %> </p><div onclick="location.href='/editTask/<%= projectID+'/'+task.id %>'" class="taskbtn"><img src="/TaskCategoryPage/imgs/edit.png"></div></li>
+                                <% } else { %>
+                                    <li><p class="taskname" onclick="location.href='task/<%= task.id %>/'"><%= task.name %> </p></li>
+                                <% } %>
                             <% } %>
                         <% } else { %>
                             <div class="main_container_empty">
